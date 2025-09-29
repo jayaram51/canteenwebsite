@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Staff Control - Smart Canteen</title>
+  <style>
+    body {
+      font-family: Poppins, Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: #f4f7f9;
+      color: #333;
+    }
+
+    h2 {
+      text-align: center;
+      color: #2c3e50;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 20px auto;
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px;
+      margin-bottom: 12px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      background: #fafafa;
+    }
+
+    .item p {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 500;
+    }
+
+    button {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .available {
+      background: #27ae60;
+      color: white;
+    }
+
+    .not-available {
+      background: #e74c3c;
+      color: white;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 30px;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>🍴 Staff Dashboard – Manage Availability</h2>
+  <div class="container">
+
+    <div class="item">
+      <p>Veg Noodles</p>
+      <button id="Veg-noodles" onclick="toggleItem('Veg-noodles')">Loading...</button>
+    </div>
+
+    <div class="item">
+      <p>Chicken Noodles</p>
+      <button id="Chicken-noodles" onclick="toggleItem('Chicken-noodles')">Loading...</button>
+    </div>
+
+    <div class="item">
+      <p>Veg Fried Rice</p>
+      <button id="Veg-fried-rice" onclick="toggleItem('Veg-fried-rice')">Loading...</button>
+    </div>
+
+    <div class="item">
+      <p>Chicken Fried Rice</p>
+      <button id="Chicken-fried-rice" onclick="toggleItem('Chicken-fried-rice')">Loading...</button>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>© 2025 Smart Canteen | Staff Control Panel</p>
+  </footer>
+
+  <script>
+    // Load availability state
+    function loadStatus() {
+      const unavailable = JSON.parse(localStorage.getItem("unavailableItems")) || [];
+      const items = ["Veg-noodles", "Chicken-noodles", "Veg-fried-rice", "Chicken-fried-rice"];
+
+      items.forEach(item => {
+        const btn = document.getElementById(item);
+        if (unavailable.includes(item)) {
+          btn.textContent = "❌ Not Available";
+          btn.className = "not-available";
+        } else {
+          btn.textContent = "✅ Available";
+          btn.className = "available";
+        }
+      });
+    }
+
+    // Toggle availability
+    function toggleItem(item) {
+      let unavailable = JSON.parse(localStorage.getItem("unavailableItems")) || [];
+      const btn = document.getElementById(item);
+
+      if (unavailable.includes(item)) {
+        unavailable = unavailable.filter(x => x !== item); // make available
+        btn.textContent = "✅ Available";
+        btn.className = "available";
+      } else {
+        unavailable.push(item); // make unavailable
+        btn.textContent = "❌ Not Available";
+        btn.className = "not-available";
+      }
+
+      localStorage.setItem("unavailableItems", JSON.stringify(unavailable));
+    }
+
+    // Run on page load
+    window.onload = loadStatus;
+  </script>
+</body>
+</html>

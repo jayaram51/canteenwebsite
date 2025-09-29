@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Canteen Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #141E30, #243B55);
+    min-height: 100vh;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 25px;
+  }
+  header h1 {
+    font-size: clamp(2rem, 6vw, 3rem);
+    font-weight: 700;
+    color: #fff;
+    
+  }
+  header p {
+    margin-top: 5px;
+    font-weight: 500;
+    color: #fff;
+  }
+
+  .container {
+    width: 90%;
+    max-width: 900px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 20px;
+    backdrop-filter: blur(12px);
+    padding: 25px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+  }
+
+  h2 {
+    margin-bottom: 20px;
+    text-align: center;
+    color: #fff;
+    text-shadow: 0 0 6px #00e5ff;
+  }
+
+  .menu {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+  }
+
+  .item img {
+  width: 150px;        /* fixed width */
+  height: 150px;       /* fixed height → square */
+  object-fit: cover;   /* crop/fit the image nicely */
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+select {
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
+  margin-bottom: 15px;
+  background: #1e2a40;   /* solid dark background */
+  color: #fff;           /* white text */
+  font-weight: 500;
+  appearance: none;      /* removes default arrow style */
+}
+
+select option {
+  background: #1e2a40;  /* dropdown options background */
+  color: #fff;           /* options text color */
+}
+
+
+  .item {
+    background: rgba(255,255,255,0.08);
+    padding: 15px;
+    border-radius: 15px;
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.3s;
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+  .item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,229,255,0.5);
+  }
+  .item img {
+    max-width: 100%;
+    border-radius: 10px;
+    margin-bottom: 10px;
+  }
+  .item h3 {
+    margin-bottom: 5px;
+    color: #fff;
+  }
+  .item p {
+    color: #fff;
+    opacity: 0.9;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  label {
+    margin: 10px 0 5px;
+    font-weight: 600;
+    color: #fff;
+  }
+
+  input, select {
+    padding: 12px;
+    border-radius: 12px;
+    border: none;
+    margin-bottom: 15px;
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+    font-weight: 500;
+  }
+  input::placeholder { color: #a4b0be; }
+
+  .form-actions {
+    text-align: center;
+    margin-top: 15px;
+  }
+
+  a.submit-btn {
+    display: inline-block;
+    padding: 12px 25px;
+    font-weight: 600;
+    font-size: 16px;
+    text-decoration: none;
+    color: #fff;
+    border-radius: 50px;
+    background: linear-gradient(135deg, #00c6ff, #0072ff);
+    box-shadow: 0 5px 20px rgba(0,198,255,0.5);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  a.submit-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0,198,255,0.7);
+  }
+
+  footer {
+    text-align: center;
+    padding: 15px;
+    margin-top: 30px;
+    color: #a4b0be;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🍴 Smart Canteen Dashboard</h1>
+  <p>Pre-book your meal & skip the queue!</p>
+</header>
+
+<div class="container">
+  <h2>📋 Menu</h2>
+  <div class="menu">
+    <div class="item">
+      <img src="vegetable-noodles.jpg" alt="Veg Noodles">
+      <h3>Veg Noodles</h3>
+      <p>₹50</p>
+    </div>
+    <div class="item">
+      <img src="veg-fried-rice.jpg" alt="Veg Fried rice">
+      <h3>Veg Fried rice</h3>
+      <p>₹60</p>
+    </div>
+    <div class="item">
+      <img src="chow-mein-Asian-noodles-12.webp" alt="Chicken Noodles">
+      <h3>Chicken Noodles</h3>
+      <p>₹70</p>
+    </div>
+    <div class="item">
+      <img src="chicken-fried-rice7.webp" alt="Chicken Fried Rice">
+      <h3>Chicken Fried Rice</h3>
+      <p>₹100</p>
+    </div>
+  </div>
+
+  <h2>🛒 Place Your Order</h2>
+  <form id="orderForm">
+    <label for="food">Select Food Item:</label>
+    <select id="food" required>
+      <option value="">--Choose an item--</option>
+      <option value="Veg-noodles">Veg Noodles - ₹50</option>
+      <option value="Chicken-noodles">Chicken Noodles - ₹70</option>
+      <option value="Veg-fried-rice">Veg Fried Rice - ₹60</option>
+      <option value="Chicken-fried-rice">Chicken Fried Rice - ₹75</option>
+    </select>
+
+    <label for="qty">Quantity:</label>
+    <input type="number" id="qty" min="1" value="1" required>
+
+    <label for="payment">Payment Method:</label>
+    <select id="payment" required>
+      <option value="Online">Online</option>
+    </select>
+
+    <div class="form-actions">
+      <a href="#" class="submit-btn" onclick="submitOrder()">Submit Order</a>
+    </div>
+  </form>
+</div>
+
+<footer>
+  <p>© 2025 Smart Canteen | Built for College Project</p>
+</footer>
+
+<script>
+function submitOrder() {
+  const food = document.getElementById('food').value;
+  const qty = parseInt(document.getElementById('qty').value);
+  const unavailableItems = JSON.parse(localStorage.getItem("unavailableItems")) || [];
+
+  if (!food || qty < 1) {
+    alert("Please select item and quantity");
+    return;
+  }
+
+  if (unavailableItems.includes(food)) {
+    alert("❌ Cannot do, " + food + " is unavailable!");
+    return;
+  }
+
+  window.location.href = `payment.html?food=${food}&qty=${qty}`;
+}
+</script>
+
+</body>
+</html>
